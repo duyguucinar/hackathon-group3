@@ -34,9 +34,9 @@ AS
     WHEN OTHERS THEN
       ROLLBACK;
       xxsd_admin.pkg_error.p_logerror(
-        'pkg_hackathon_demo.p_reset_demo_data',
-        SQLCODE,
-        'Error resetting demo data: ' || SQLERRM
+        p_module        => 'pkg_hackathon_demo.p_reset_demo_data',
+        p_errorCode     => TO_CHAR(SQLCODE),
+        p_errorMessage  => 'Error resetting demo data: ' || SQLERRM
       );
       RAISE_APPLICATION_ERROR(-20001, 'Failed to reset demo data: ' || SQLERRM);
   END p_reset_demo_data;
@@ -45,7 +45,7 @@ AS
   -- p_generate_demo_data
   -- =============================================================================
   PROCEDURE p_generate_demo_data(
-    p_provisionerseq in number DEFAULT 1
+    p_provisionerseq in number
   )
   AS
     v_order_seq        NUMBER;
@@ -525,9 +525,9 @@ AS
     WHEN OTHERS THEN
       ROLLBACK;
       xxsd_admin.pkg_error.p_logerror(
-        'pkg_hackathon_demo.p_generate_demo_data',
-        SQLCODE,
-        'Error generating demo data: ' || SQLERRM
+        p_module        => 'pkg_hackathon_demo.p_generate_demo_data',
+        p_errorCode     => TO_CHAR(SQLCODE),
+        p_errorMessage  => 'Error generating demo data: ' || SQLERRM
       );
       RAISE_APPLICATION_ERROR(-20002, 'Failed to generate demo data: ' || SQLERRM);
   END p_generate_demo_data;
@@ -536,7 +536,7 @@ AS
   -- p_print_demo_summary
   -- =============================================================================
   PROCEDURE p_print_demo_summary(
-    p_provisionerseq in number DEFAULT 1
+    p_provisionerseq in number
   )
   AS
     v_orders_count       NUMBER;
@@ -599,9 +599,9 @@ AS
   EXCEPTION
     WHEN OTHERS THEN
       xxsd_admin.pkg_error.p_logerror(
-        'pkg_hackathon_demo.p_print_demo_summary',
-        SQLCODE,
-        'Error printing demo summary: ' || SQLERRM
+        p_module        => 'pkg_hackathon_demo.p_print_demo_summary',
+        p_errorCode     => TO_CHAR(SQLCODE),
+        p_errorMessage  => 'Error printing demo summary: ' || SQLERRM
       );
       RAISE_APPLICATION_ERROR(-20003, 'Failed to print demo summary: ' || SQLERRM);
   END p_print_demo_summary;
